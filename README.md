@@ -76,6 +76,11 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 ```
 
+## Base de Datos
+
+Para inicializar la base de datos, puedes utilizar el archivo SQL disponible en el siguiente enlace:
+
+[BaseDatos.sql](https://github.com/CyberJoel1/microservices-project/blob/master/microservices-parent/src/main/resources/static/BaseDatos.sql)
 
 
 
