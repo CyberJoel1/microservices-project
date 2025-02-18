@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: accounts
+          uri: lb://TRANSACTION-SERVICE
+          predicates:
+            - Path=/cuentas/**
+        - id: movements
+          uri: lb://TRANSACTION-SERVICE
+          predicates:
+            - Path=/movimientos/**
+        - id: clients
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/clientes/**
+
+eureka:
+  client:
+    register-with-eureka: false

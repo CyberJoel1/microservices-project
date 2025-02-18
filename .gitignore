@@ -1,0 +1,66 @@
+# Maven wrapper
+!.mvn/wrapper/maven-wrapper.jar
+
+# Excluir archivos generados por Maven/Gradle
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS (Spring Tool Suite) ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+# Excluir logs y archivos generados
+*.log
+
+# Excluir cualquier archivo binario o compilado
+*.class
+*.jar
+*.war
+*.ear
+
+# Archivos específicos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar volúmenes de Docker
+microservices-parent/mysql-persistent/
+
+# Ignorar directorios de construcción
+build/
+target/
+
+# Ignorar archivos temporales de contenedores
+*.log
+
+# Ignorar archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar configuraciones de Docker que no se necesiten
+docker-compose.override.yml
+docker-compose.prod.yml
