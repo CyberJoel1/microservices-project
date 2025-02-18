@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "328eb827-ba1e-444d-bac7-a9a082f8c8a2",
+		"name": "Demo_cliente",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42379294"
+	},
+	"item": [
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "ClientePST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"client\": {\r\n    \"name\": \"John Doe\",\r\n    \"gender\": \"Male\",\r\n    \"age\": 30,\r\n    \"identification\": \"123456789\",\r\n    \"address\": \"123 Main St, City, Country\",\r\n    \"phoneNumber\": \"555-1234\",\r\n    \"password\": \"password123\",\r\n    \"status\": \"Active\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/clientes",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClienteGet",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/clientes?identification=123456789",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"clientes"
+							],
+							"query": [
+								{
+									"key": "identification",
+									"value": "123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClientePTC",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"client\": {\r\n    \"name\": \"John Doe\",\r\n    \"gender\": \"Male\",\r\n    \"age\": 30,\r\n    \"identification\": \"123456789\",\r\n    \"address\": \"123 Main St, City, Country\",\r\n    \"phoneNumber\": \"555-1234\",\r\n    \"password\": \"password123\",\r\n    \"status\": \"Active\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/clientes/1",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 10.00,\r\n    \"accountNumber\": \"1546654\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/clientes/pago",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"clientes",
+								"pago"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movimientos",
+			"item": [
+				{
+					"name": "MovementPST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountNumber\":\"154646\",\r\n    \"movement\":{\r\n        \"amount\": \"50.00\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/movimientos",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"movimientos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MovementGet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_PROJECT}}/movimientos/1",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"movimientos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MovementPTC",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountNumber\":\"154646\",\r\n    \"movement\":{\r\n        \"amount\": \"50.00\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/movimientos/1",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"movimientos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cuenta",
+			"item": [
+				{
+					"name": "AccountPST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account\":{\r\n        \"accountNumber\": \"1546654\",\r\n        \"type\": \"Ahorros\",\r\n        \"accountBalance\": \"20.00\",\r\n        \"client\":{\r\n            \"clientId\": 1\r\n        }\r\n\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/cuentas",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"cuentas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AccountPTC",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account\":{\r\n        \"accountNumber\": \"1546654\",\r\n        \"type\": \"Ahorros\",\r\n        \"accountBalance\": \"10.00\",\r\n        \"client\":{\r\n            \"clientId\": 2\r\n        }\r\n\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/cuentas/1",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"cuentas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AccountGet",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
