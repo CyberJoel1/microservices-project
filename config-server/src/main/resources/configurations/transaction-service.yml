@@ -2,9 +2,6 @@ server:
   port: 8090
 
 spring:
-  resources:
-    static-locations: classpath:/static/
-    add-mappings: false
   application:
     name: transaction-service
   datasource:
@@ -12,6 +9,8 @@ spring:
     url: jdbc:mysql://localhost:3306/demo_db
     username: root
     password: 230011
+  jackson:
+    default-property-inclusion: non_null
   jpa:
     hibernate:
       ddl-auto: validate

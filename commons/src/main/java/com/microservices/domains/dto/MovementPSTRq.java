@@ -7,6 +7,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class MovementPSTRq {
     private String accountNumber;
     private Movement movement;

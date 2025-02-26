@@ -5,20 +5,18 @@ import com.microservices.domains.dto.*;
 import com.microservices.transactionservice.application.mapper.AccountMapper;
 import com.microservices.transactionservice.domain.ports.in.AccountService;
 import com.microservices.transactionservice.domain.ports.out.AccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
-    @Autowired
-    public AccountServiceImpl( AccountRepository accountRepository) {
+    public AccountServiceImpl(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
@@ -30,23 +28,21 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountPTCRs updateAccount(AccountPTCRq accountPTCRq, String id) {
-
         Account accountCreated = accountRepository.update(accountPTCRq.getAccount(), Integer.parseInt(id));
         return AccountMapper.INSTANCE.domainToDtoPTC(accountCreated);
     }
 
     @Override
     public void deleteAccount(Integer id) {
-        AccountPTCRq accountPTCRq = new AccountPTCRq();
-        accountPTCRq.setAccount(new Account());
-        accountPTCRq.getAccount().setStatus("C");
-        accountRepository.update(accountPTCRq.getAccount(), id);
+        Account account = new Account();
+        account.setStatus("C");
+        accountRepository.update(account, id);
     }
 
     @Override
     public AccountGetRs getAccountByNumberAccount(String numberAccount) {
-        Account account = accountRepository.findByAccountNumber(numberAccount);
-        return AccountMapper.INSTANCE.domainToDtoGet(account);
+        Optional<Account> account = accountRepository.findByAccountNumber(numberAccount);
+        return account.map(AccountMapper.INSTANCE::domainToDtoGet).orElse(null);
     }
 
     @Override
@@ -54,5 +50,4 @@ public class AccountServiceImpl implements AccountService {
         List<Account> accountList = accountRepository.findByIdentification(identification, startDate, endDate);
         return accountList.stream().map(AccountMapper.INSTANCE::domainToDtoGet).toList();
     }
-
 }

@@ -1,5 +1,6 @@
 package com.microservices.domains.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PaymentEventRq {
+
+    @NotNull
     private BigDecimal amount;
+
+    @NotNull
     private String accountNumber;
 }

@@ -2,10 +2,7 @@ package com.microservices.userservice.application.services;
 
 import com.microservices.domains.Client;
 import com.microservices.domains.dto.*;
-import com.microservices.userservice.application.mapper.ClientMapper;
-import com.microservices.userservice.domain.ports.in.ClientService;
 import com.microservices.userservice.domain.ports.out.ClientRepository;
-import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,108 +11,78 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-
 
 class ClientServiceImplTest {
 
-    @InjectMocks
-    private ClientServiceImpl clientServiceImpl;
     @Mock
     private ClientRepository clientRepository;
 
-    @Mock
-    private ClientMapper clientMapper;
-
-    private ClientPSTRq clientPSTRq;
-    private ClientGetRs clientGetRs;
-    private ClientPTCRs clientPTCRs;
-    private Client client;
-
+    @InjectMocks
+    private ClientServiceImpl clientServiceImpl;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
-
-        client = new Client();
-        client.setId(1);
-        client.setStatus("A");
-
-
-        clientPSTRq = new ClientPSTRq();
-        clientPSTRq.setClient(client);
-
-        clientGetRs = new ClientGetRs();
-        clientGetRs.setClient(new Client());
-        clientGetRs.getClient().setId(1);
-        clientGetRs.getClient().setName("jds");
-        clientGetRs.getClient().setStatus("A");
-
-        clientPTCRs = new ClientPTCRs();
-        Client clientInstance = new Client();
-        clientInstance.setId(1);
-        clientInstance.setStatus("A");
-        clientInstance.setName("jds");
-        clientPTCRs.setClient(clientInstance);
     }
-
 
     @Test
     void testCreate() {
-
+        Client client = new Client();
+        client.setName("John Doe");
+        ClientPSTRq clientPSTRq = new ClientPSTRq();
+        clientPSTRq.setClient(client);
 
         when(clientRepository.create(any(Client.class))).thenReturn(client);
-
-
-        when(clientMapper.domainToDtoPST(any(Client.class))).thenReturn(new ClientPSTRs());
-
         ClientPSTRs result = clientServiceImpl.create(clientPSTRq);
 
-        verify(clientRepository, times(1)).create(any(Client.class));
-
-
         assertNotNull(result);
+        assertEquals("John Doe", result.getClient().getName());
+        verify(clientRepository, times(1)).create(any(Client.class));
     }
 
     @Test
     void testFindByIdentification() {
-
-
-        ClientGetRs clientGetRs = new ClientGetRs();
-        clientGetRs.setClient(new Client());
-        clientGetRs.getClient().setId(1);
-        clientGetRs.getClient().setName("jds");
-        clientGetRs.getClient().setStatus("A");
+        String identification = "12345";
+        Client client = new Client();
+        client.setName("Jane Doe");
 
         when(clientRepository.findByIdentification(anyString())).thenReturn(client);
+        ClientGetRs result = clientServiceImpl.findByIdentification(identification);
 
-
-        assertNotNull(clientServiceImpl.findByIdentification("123"));
+        assertNotNull(result);
+        assertEquals("Jane Doe", result.getClient().getName());
+        verify(clientRepository, times(1)).findByIdentification(anyString());
     }
-
-
 
     @Test
     void testUpdate() {
+        String id = "1";
+        Client client = new Client();
+        client.setName("John Smith");
         ClientPTCRq clientPTCRq = new ClientPTCRq();
         clientPTCRq.setClient(client);
 
-
         when(clientRepository.update(any(Client.class), anyInt())).thenReturn(client);
+        ClientPTCRs result = clientServiceImpl.update(clientPTCRq, id);
 
-        when(clientMapper.domainToDtoPTC(any())).thenReturn(clientPTCRs);
-
-        assertNotNull(clientServiceImpl.update(clientPTCRq, "1").getClient());
+        assertNotNull(result);
+        assertEquals("John Smith", result.getClient().getName());
+        verify(clientRepository, times(1)).update(any(Client.class), anyInt());
     }
 
     @Test
     void testDelete() {
-        ClientPTCRq clientPTCRq = new ClientPTCRq();
-        clientPTCRq.setClient(client);
+        String id = "1";
+        Client client = new Client();
+        client.setStatus("C");
 
-        clientServiceImpl.delete("1");
+        when(clientRepository.update(any(Client.class), anyInt())).thenReturn(client);
+        clientServiceImpl.delete(id);
 
-        verify(clientRepository, times(1)).update(any(Client.class), eq(1));
+        verify(clientRepository, times(1))
+                .update(argThat(argument -> "C".equals(argument.getStatus())), anyInt());
     }
 }

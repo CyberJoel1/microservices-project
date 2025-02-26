@@ -24,9 +24,6 @@ public class MovementRepositoryAdapter implements MovementRepository {
     @Autowired
     private AccountEntityRepositoryJPA accountEntityRepository;
 
-
-
-
     @Transactional
     @Override
     public Movement create(Movement movement) {

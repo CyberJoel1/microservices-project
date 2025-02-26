@@ -2,6 +2,7 @@ package com.microservices.domains;
 
 import com.microservices.exception.BusinessLogicException;
 import com.microservices.exception.LogLevel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Account balance")
 public class AccountBalance {
     private BigDecimal balance;
 

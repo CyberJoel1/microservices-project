@@ -19,4 +19,9 @@ Feature: Client Service API Testing
     And match response.name == 'John Doe'
     And match response.identification == '12345'
 
-
+  Scenario: Make a payment
+    Given path '/pago/rest'
+    And request { "amount": 10.00, "accountNumber": "1546654"}
+    When method post
+    Then status 200
+    And match response.movement.amount == 10.00

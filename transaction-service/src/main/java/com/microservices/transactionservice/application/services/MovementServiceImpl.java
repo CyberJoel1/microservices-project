@@ -2,6 +2,7 @@ package com.microservices.transactionservice.application.services;
 
 import com.microservices.domains.dto.*;
 import com.microservices.exception.BusinessLogicException;
+import com.microservices.transactionservice.application.facade.AccountFacade;
 import com.microservices.transactionservice.application.mapper.MovementMapper;
 import com.microservices.domains.Account;
 import com.microservices.domains.Movement;
@@ -25,43 +26,24 @@ public class MovementServiceImpl implements MovementService {
     private MovementRepository movementRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountFacade accountFacade;
 
-
-
-
-    @Transactional()
+    @Transactional
     @Override
     public MovementPSTRs registerMovement(MovementPSTRq movementPSTRq) {
         String accountNumber = movementPSTRq.getAccountNumber();
+        BigDecimal amountToPay = movementPSTRq.getMovement().getAmount();
 
-        Account accountToUpdate = accountRepository.findByAccountNumber(accountNumber);
-
-        if(accountToUpdate == null){
-            throw new BusinessLogicException("Account not found", ERROR);
-        }
-
-        BigDecimal balanceAfterPayment =
-                accountToUpdate.getAccountBalance().getBalance().subtract(movementPSTRq.getMovement().getAmount());
-
-        if(balanceAfterPayment.compareTo(BigDecimal.ZERO) <= 0){
-            throw new BusinessLogicException("Balance not available", ERROR);
-        }
-
-        accountToUpdate.getAccountBalance().setBalance(balanceAfterPayment);
-
-        Account AccountUpdated = accountRepository.update(accountToUpdate, accountToUpdate.getId());
+        Account accountWithDiscount = accountFacade.discountInAccount(accountNumber, amountToPay);
 
         Movement movementToCreate = MovementMapper.INSTANCE.dtoToDomain(movementPSTRq);
-
         movementToCreate.setDate(LocalDateTime.now());
-        movementToCreate.setRemainingBalance(balanceAfterPayment);
-        movementToCreate.setAccount(new Account());
-        movementToCreate.getAccount().setId(accountToUpdate.getId());
+        movementToCreate.setRemainingBalance(accountWithDiscount.getAccountBalance().getBalance());
+        movementToCreate.setAccount(accountWithDiscount);
 
         Movement movementCreated = movementRepository.create(movementToCreate);
 
-        return MovementMapper.INSTANCE.domainToDtoPST(movementCreated, accountToUpdate);
+        return MovementMapper.INSTANCE.domainToDtoPST(movementCreated, accountWithDiscount);
     }
 
     @Override

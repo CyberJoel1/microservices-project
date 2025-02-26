@@ -21,6 +21,7 @@ public class ClientEntity {
     @Column(name = "cl_password")
     private String password;
 
+
     @Column(name = "cl_status")
     private String status;
 
