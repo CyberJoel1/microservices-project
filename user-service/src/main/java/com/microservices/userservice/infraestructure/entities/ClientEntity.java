@@ -1,6 +1,7 @@
 package com.microservices.userservice.infraestructure.entities;
 
 
+import com.microservices.domains.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,9 +22,9 @@ public class ClientEntity {
     @Column(name = "cl_password")
     private String password;
 
-
     @Column(name = "cl_status")
-    private String status;
+    @Convert(converter = StatusConverter.class)
+    private Status status;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cl_id_person", referencedColumnName = "pr_secuencial")

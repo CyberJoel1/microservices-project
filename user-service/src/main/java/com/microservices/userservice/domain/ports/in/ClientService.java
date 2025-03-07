@@ -7,6 +7,7 @@ public interface ClientService {
 
     ClientPSTRs create(ClientPSTRq clientPSTRq);
     ClientGetRs findByIdentification(String identification);
+    ClientGetRs findById(String id);
     ClientPTCRs update(ClientPTCRq clientPTCRq, String id);
     void delete(String id);
 

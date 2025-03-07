@@ -2,6 +2,7 @@ package com.microservices.transactionservice.application.services;
 
 import com.microservices.domains.Account;
 import com.microservices.domains.dto.*;
+import com.microservices.domains.enums.Status;
 import com.microservices.transactionservice.application.mapper.AccountMapper;
 import com.microservices.transactionservice.domain.ports.in.AccountService;
 import com.microservices.transactionservice.domain.ports.out.AccountRepository;
@@ -22,6 +23,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountPSTRs createAccount(AccountPSTRq accountPSTRq) {
+        accountPSTRq.getAccount().setStatus(Status.ACTIVE);
         Account accountCreated = accountRepository.create(accountPSTRq.getAccount());
         return AccountMapper.INSTANCE.domainToDtoPST(accountCreated);
     }
@@ -35,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void deleteAccount(Integer id) {
         Account account = new Account();
-        account.setStatus("C");
+        account.setStatus(Status.NON_ACTIVE);
         accountRepository.update(account, id);
     }
 
@@ -50,4 +52,11 @@ public class AccountServiceImpl implements AccountService {
         List<Account> accountList = accountRepository.findByIdentification(identification, startDate, endDate);
         return accountList.stream().map(AccountMapper.INSTANCE::domainToDtoGet).toList();
     }
+
+    @Override
+    public AccountGetRs getAccountById(Integer id) {
+        Account account = accountRepository.findById(id).orElseThrow();
+        return AccountMapper.INSTANCE.domainToDtoGet(account);
+    }
+
 }

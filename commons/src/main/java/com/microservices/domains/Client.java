@@ -1,5 +1,6 @@
 package com.microservices.domains;
 
+import com.microservices.domains.enums.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -15,6 +16,6 @@ public class Client extends Person {
     @Schema(description = "password client")
     private String password;
 
-    @Schema(description = "status client", allowableValues = {"VIGENTE", "NO VIGENTE"})
-    private String status;
+    @Schema(description = "Client status", allowableValues = {"true", "false"})
+    private Status status;
 }

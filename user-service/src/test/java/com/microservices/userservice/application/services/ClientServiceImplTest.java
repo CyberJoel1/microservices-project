@@ -2,6 +2,7 @@ package com.microservices.userservice.application.services;
 
 import com.microservices.domains.Client;
 import com.microservices.domains.dto.*;
+import com.microservices.domains.enums.Status;
 import com.microservices.userservice.domain.ports.out.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,7 +78,7 @@ class ClientServiceImplTest {
     void testDelete() {
         String id = "1";
         Client client = new Client();
-        client.setStatus("C");
+        client.setStatus(Status.NON_ACTIVE);
 
         when(clientRepository.update(any(Client.class), anyInt())).thenReturn(client);
         clientServiceImpl.delete(id);

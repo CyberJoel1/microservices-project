@@ -1,6 +1,8 @@
 package com.microservices.transactionservice.application.services;
 
 import com.microservices.domains.dto.*;
+import com.microservices.domains.enums.PaymentType;
+import com.microservices.domains.enums.Status;
 import com.microservices.exception.BusinessLogicException;
 import com.microservices.transactionservice.application.facade.AccountFacade;
 import com.microservices.transactionservice.application.mapper.MovementMapper;
@@ -28,16 +30,22 @@ public class MovementServiceImpl implements MovementService {
     @Autowired
     private AccountFacade accountFacade;
 
-    @Transactional
+    @Transactional()
     @Override
     public MovementPSTRs registerMovement(MovementPSTRq movementPSTRq) {
         String accountNumber = movementPSTRq.getAccountNumber();
         BigDecimal amountToPay = movementPSTRq.getMovement().getAmount();
+        PaymentType typeMovement = movementPSTRq.getMovement().getType();
 
-        Account accountWithDiscount = accountFacade.discountInAccount(accountNumber, amountToPay);
+        Account accountWithDiscount = switch (typeMovement) {
+            case CREDIT -> accountFacade.increaseInAccount(accountNumber, amountToPay);
+            case DEBIT -> accountFacade.discountInAccount(accountNumber, amountToPay);
+            default -> throw new IllegalArgumentException("Unsupported payment type: " + typeMovement);
+        };
 
         Movement movementToCreate = MovementMapper.INSTANCE.dtoToDomain(movementPSTRq);
         movementToCreate.setDate(LocalDateTime.now());
+        movementToCreate.setStatus(Status.ACTIVE);
         movementToCreate.setRemainingBalance(accountWithDiscount.getAccountBalance().getBalance());
         movementToCreate.setAccount(accountWithDiscount);
 

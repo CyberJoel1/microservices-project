@@ -11,10 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.RequestPath;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
 @RestController
 @RequestMapping("/cuentas")
 @Tag(name = "Management of bank accounts", description = "CRUD account management")
@@ -39,6 +35,13 @@ public class AccountController {
     ResponseEntity<AccountPSTRs> createAccount(@RequestBody AccountPSTRq accountPSTRq) {
         AccountPSTRs accountPSTRs = accountService.createAccount(accountPSTRq);
         return ResponseEntity.ok(accountPSTRs);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get an account by id")
+    ResponseEntity<AccountGetRs> getAccountById(@PathVariable("id") String id) {
+        AccountGetRs accountGetRs = accountService.getAccountById(Integer.parseInt(id));
+        return ResponseEntity.ok(accountGetRs);
     }
 
     @PatchMapping("/{id}")

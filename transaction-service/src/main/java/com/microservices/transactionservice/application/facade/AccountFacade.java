@@ -40,5 +40,20 @@ public class AccountFacade {
     }
 
 
+    public Account increaseInAccount(String accountNumber, BigDecimal amountToDeposit){
+
+        Account accountToUpdate = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new BusinessLogicException("Account not found", ERROR));
+
+        BigDecimal balanceAfterPayment = accountToUpdate.getAccountBalance().getBalance()
+                .add(amountToDeposit);
+
+        accountToUpdate.getAccountBalance().setBalance(balanceAfterPayment);
+        accountRepository.update(accountToUpdate, accountToUpdate.getId());
+
+        return accountToUpdate;
+    }
+
+
 
 }

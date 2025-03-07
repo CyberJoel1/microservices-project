@@ -42,6 +42,12 @@ public class ClientRepositoryAdapter implements ClientRepository {
     }
 
     @Override
+    public Client findById(String id) {
+        ClientEntity client = clientEntityRepository.findById(Integer.valueOf(id)).orElseThrow();
+        return ClientMapper.INSTANCE.domainToDto(client);
+    }
+
+    @Override
     public Client update(Client client, Integer id) {
         Optional<ClientEntity> clientEntity = clientEntityRepository.findById(id);
 
@@ -52,6 +58,8 @@ public class ClientRepositoryAdapter implements ClientRepository {
         ClientEntity clientEntityNew = ClientMapper.INSTANCE.dtoToDomain(client);
 
         ClientMapper.INSTANCE.updatedClientEntity(clientEntityNew, clientEntity.get());
+
+        clientEntityRepository.save(clientEntity.get());
 
         return ClientMapper.INSTANCE.domainToDto(clientEntity.get());
     }

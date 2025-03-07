@@ -2,6 +2,7 @@ package com.microservices.userservice.application.services;
 
 import com.microservices.domains.Client;
 import com.microservices.domains.dto.*;
+import com.microservices.domains.enums.Status;
 import com.microservices.userservice.application.mapper.ClientMapper;
 import com.microservices.userservice.domain.ports.in.ClientService;
 import com.microservices.userservice.domain.ports.out.ClientRepository;
@@ -21,6 +22,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientPSTRs create(ClientPSTRq clientPSTRq) {
+        clientPSTRq.getClient().setStatus(Status.ACTIVE);
         return (
                 ClientMapper.INSTANCE.domainToDtoPST(
                         clientRepository.create(clientPSTRq.getClient())
@@ -32,6 +34,14 @@ public class ClientServiceImpl implements ClientService {
     public ClientGetRs findByIdentification(String identification) {
         return (ClientMapper.INSTANCE.domainToDtoGet(
                 clientRepository.findByIdentification(identification)
+        )
+        );
+    }
+
+    @Override
+    public ClientGetRs findById(String id) {
+        return (ClientMapper.INSTANCE.domainToDtoGet(
+                clientRepository.findById(id)
         )
         );
     }
@@ -50,7 +60,7 @@ public class ClientServiceImpl implements ClientService {
     public void delete(String id) {
         ClientPTCRq clientPTCRq = new ClientPTCRq();
         clientPTCRq.setClient(new Client());
-        clientPTCRq.getClient().setStatus("C");
+        clientPTCRq.getClient().setStatus(Status.NON_ACTIVE);
         clientRepository.update(clientPTCRq.getClient(), Integer.parseInt(id));
     }
 }

@@ -21,6 +21,7 @@ public interface AccountMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     AccountGetRs domainToDtoGet(Account account);
 
+    @Mapping(source = "id", target = "account.id")
     @Mapping(source = "accountNumber", target = "account.accountNumber")
     @Mapping(source = "accountBalance.balance", target = "account.accountBalance.balance")
     @Mapping(source = "type", target = "account.type")

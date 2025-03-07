@@ -12,4 +12,5 @@ public interface AccountService {
     void deleteAccount(Integer id);
     AccountGetRs getAccountByNumberAccount(String numberAccount);
     List<AccountGetRs> getAllAccountsByIdentification(String identification, LocalDateTime startDate, LocalDateTime endDate);
+    AccountGetRs getAccountById(Integer id);
 }

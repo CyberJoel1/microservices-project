@@ -41,6 +41,7 @@ public interface MovementMapper {
     @Mapping(source = "remainingBalance", target = "remainingBalance")
     @Mapping(target = "account", ignore = true)
     @Mapping(source = "account.id",target = "accountId")
+    @Mapping(source = "status", target = "status")
     MovementEntity dtoToDomainCreate(Movement movement);
 
     List<Movement> domainToDtos(List<MovementEntity> movementEntity);
