@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"client\": {\r\n    \"name\": \"John Doe\",\r\n    \"gender\": \"Male\",\r\n    \"age\": 30,\r\n    \"identification\": \"123456789\",\r\n    \"address\": \"123 Main St, City, Country\",\r\n    \"phoneNumber\": \"555-1234\",\r\n    \"password\": \"password123\",\r\n    \"status\": \"Active\"\r\n  }\r\n}\r\n",
+							"raw": "{\r\n  \"client\": {\r\n    \"name\": \"John Doe\",\r\n    \"gender\": \"Male\",\r\n    \"age\": 30,\r\n    \"identification\": \"123456789\",\r\n    \"address\": \"123 Main St, City, Country\",\r\n    \"phoneNumber\": \"555-1234\",\r\n    \"password\": \"password123\"\r\n  }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,11 +41,81 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMzQ1NjciLCJpYXQiOjE3NDA1ODQ2ODMsImV4cCI6MTc0MDYyMDY4M30.E4UfE8m4Ib4IKVWbtzdixjDgO8fC3gxh0mXyifbStzI",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/clientes/1",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClientePTC",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"client\": {\r\n        \"name\": \"Joel\",\r\n        \"gender\": \"Male\",\r\n        \"age\": 28,\r\n        \"identification\": \"17264944026\",\r\n        \"address\": \"Av. Tsafiqui\",\r\n        \"phoneNumber\": \"+593981223926\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/clientes/32",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"clientes",
+								"32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClientGetByIdentification",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"client\": {\r\n    \"name\": \"John Doe\",\r\n    \"gender\": \"Male\",\r\n    \"age\": 30,\r\n    \"identification\": \"123456789\",\r\n    \"address\": \"123 Main St, City, Country\",\r\n    \"phoneNumber\": \"555-1234\",\r\n    \"password\": \"password123\",\r\n    \"status\": \"Active\"\r\n  }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -69,60 +139,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "ClientePTC",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"client\": {\r\n    \"name\": \"John Doe\",\r\n    \"gender\": \"Male\",\r\n    \"age\": 30,\r\n    \"identification\": \"123456789\",\r\n    \"address\": \"123 Main St, City, Country\",\r\n    \"phoneNumber\": \"555-1234\",\r\n    \"password\": \"password123\",\r\n    \"status\": \"Active\"\r\n  }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL_PROJECT}}/clientes/1",
-							"host": [
-								"{{URL_PROJECT}}"
-							],
-							"path": [
-								"clientes",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Payment",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"amount\": 10.00,\r\n    \"accountNumber\": \"1546654\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL_PROJECT}}/clientes/pago",
-							"host": [
-								"{{URL_PROJECT}}"
-							],
-							"path": [
-								"clientes",
-								"pago"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -136,7 +152,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"accountNumber\":\"154646\",\r\n    \"movement\":{\r\n        \"amount\": \"50.00\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"accountNumber\": \"123456789\",\r\n    \"movement\":{\r\n        \"amount\": \"10.00\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -212,7 +228,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"account\":{\r\n        \"accountNumber\": \"1546654\",\r\n        \"type\": \"Ahorros\",\r\n        \"accountBalance\": \"20.00\",\r\n        \"client\":{\r\n            \"clientId\": 1\r\n        }\r\n\r\n    }\r\n}",
+							"raw": "{\r\n    \"account\": {\r\n        \"accountNumber\": \"123457788\",\r\n        \"type\": \"S\",\r\n        \"accountBalance\": 20.00, \r\n        \"client\": {\r\n            \"clientId\": 33\r\n        }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -238,7 +254,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"account\":{\r\n        \"accountNumber\": \"1546654\",\r\n        \"type\": \"Ahorros\",\r\n        \"accountBalance\": \"10.00\",\r\n        \"client\":{\r\n            \"clientId\": 2\r\n        }\r\n\r\n    }\r\n}",
+							"raw": "{\r\n    \"account\": {\r\n        \"accountNumber\": \"123457788\",\r\n        \"type\": \"S\",\r\n        \"accountBalance\": {\r\n            \"balance\": 40.0\r\n        }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -246,13 +262,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_PROJECT}}/cuentas/1",
+							"raw": "{{URL_PROJECT}}/cuentas/19",
 							"host": [
 								"{{URL_PROJECT}}"
 							],
 							"path": [
 								"cuentas",
-								"1"
+								"19"
 							]
 						}
 					},
@@ -262,7 +278,119 @@
 					"name": "AccountGet",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{URL_PROJECT}}/cuentas?numberAccount=123456789",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"cuentas"
+							],
+							"query": [
+								{
+									"key": "numberAccount",
+									"value": "123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reportes",
+			"item": [
+				{
+					"name": "reporte",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_PROJECT}}/reportes?clientId=32&startDate=2024-02-24T15:30:00&endDate=2026-03-24T15:30:00",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"reportes"
+							],
+							"query": [
+								{
+									"key": "clientId",
+									"value": "32"
+								},
+								{
+									"key": "startDate",
+									"value": "2024-02-24T15:30:00"
+								},
+								{
+									"key": "endDate",
+									"value": "2026-03-24T15:30:00"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "productos",
+			"item": [
+				{
+					"name": "credit note",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"amount\": 50.00, \"accountNumber\": \"123457788\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/banking/credit/rest",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"banking",
+								"credit",
+								"rest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "debit note",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"amount\": 20.00, \"accountNumber\": \"123457788\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/banking/debit/rest",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"banking",
+								"debit",
+								"rest"
+							]
+						}
 					},
 					"response": []
 				}

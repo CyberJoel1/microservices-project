@@ -143,7 +143,7 @@ Cuando ocurre una excepción de lógica de negocio, la respuesta será algo como
 
 #### Petición GET
 
-GET /cuentas?clientId=1&startDate=2024-02-24T15:30:00&endDate=2026-03-24T15:30:00 HTTP/1.1 Host: localhost:8080
+GET /reportes?clientId=32&startDate=2024-02-24T15:30:00&endDate=2026-03-24T15:30:00
 
 
 ### Resultado en JSON
@@ -152,57 +152,128 @@ GET /cuentas?clientId=1&startDate=2024-02-24T15:30:00&endDate=2026-03-24T15:30:0
 [
     {
         "account": {
-            "id": null,
-            "accountNumber": "1546654",
-            "type": "Ahorros",
+            "accountNumber": "accountNumber",
+            "type": "S",
             "accountBalance": {
-                "balance": 14580.00
+                "balance": 60.00
             },
-            "status": null,
             "client": {
-                "id": null,
-                "name": null,
-                "gender": null,
-                "age": null,
-                "identification": null,
-                "address": null,
-                "phoneNumber": null,
-                "clientId": 1,
-                "password": null,
-                "status": null
+                "clientId": 32
             },
             "movements": [
                 {
-                    "id": 3,
-                    "date": "2025-02-17T02:55:33",
-                    "type": null,
+                    "id": 17,
+                    "date": "2025-03-07T04:29:09",
+                    "type": "C",
+                    "amount": 50.00,
+                    "remainingBalance": 70.00,
+                    "status": true
+                },
+                {
+                    "id": 18,
+                    "date": "2025-03-07T04:29:09",
+                    "type": "D",
                     "amount": 10.00,
-                    "remainingBalance": 14980.00,
-                    "account": null
+                    "remainingBalance": 60.00,
+                    "status": true
+                }
+            ]
+        }
+    },
+    {
+        "account": {
+            "accountNumber": "11111",
+            "type": "S",
+            "accountBalance": {
+                "balance": 110.00
+            },
+            "client": {
+                "clientId": 32
+            },
+            "movements": [
+                {
+                    "id": 19,
+                    "date": "2025-03-07T04:31:26",
+                    "type": "C",
+                    "amount": 50.00,
+                    "remainingBalance": 70.00,
+                    "status": true
                 },
                 {
-                    "id": 9,
-                    "date": "2025-02-17T04:04:29",
-                    "type": null,
-                    "amount": 50.00,
-                    "remainingBalance": 14680.00,
-                    "account": null
+                    "id": 20,
+                    "date": "2025-03-07T04:31:26",
+                    "type": "D",
+                    "amount": 10.00,
+                    "remainingBalance": 60.00,
+                    "status": true
                 },
                 {
-                    "id": 10,
-                    "date": "2025-02-17T04:07:20",
-                    "type": null,
+                    "id": 21,
+                    "date": "2025-03-07T04:32:10",
+                    "type": "C",
                     "amount": 50.00,
-                    "remainingBalance": 14630.00,
-                    "account": null
+                    "remainingBalance": 110.00,
+                    "status": true
+                }
+            ]
+        }
+    },
+    {
+        "account": {
+            "accountNumber": "33333",
+            "type": "S",
+            "accountBalance": {
+                "balance": 60.00
+            },
+            "client": {
+                "clientId": 32
+            },
+            "movements": [
+                {
+                    "id": 22,
+                    "date": "2025-03-07T04:32:56",
+                    "type": "C",
+                    "amount": 50.00,
+                    "remainingBalance": 70.00,
+                    "status": true
                 },
                 {
-                    "id": 11,
-                    "date": "2025-02-18T01:18:16",
-                    "type": null,
+                    "id": 23,
+                    "date": "2025-03-07T04:32:56",
+                    "type": "D",
+                    "amount": 10.00,
+                    "remainingBalance": 60.00,
+                    "status": true
+                }
+            ]
+        }
+    },
+    {
+        "account": {
+            "accountNumber": "123456789",
+            "type": "S",
+            "accountBalance": {
+                "balance": 60.00
+            },
+            "client": {
+                "clientId": 32
+            },
+            "movements": [
+                {
+                    "id": 24,
+                    "date": "2025-03-07T04:33:41",
+                    "type": "C",
                     "amount": 50.00,
-                    "remainingBalance": 14580.00,
-                    "account": null
+                    "remainingBalance": 70.00,
+                    "status": true
+                },
+                {
+                    "id": 25,
+                    "date": "2025-03-07T04:33:41",
+                    "type": "D",
+                    "amount": 10.00,
+                    "remainingBalance": 60.00,
+                    "status": true
                 }
             ]
         }
